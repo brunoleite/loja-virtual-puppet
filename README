@@ -1,0 +1,36 @@
+vagrant file
+  config.vm.provider :virtualbox do |vb|
+    #vb.customize ["modifyvm", :id, "--memory", "2048"]
+    vb.memory = 2048
+    vb.cpus = 2
+  end
+
+
+export JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk-amd64
+export MAVEN_OPTS="-Xmx700m -XX:MaxPermSize=700m -XX:ReservedCodeCacheSize=500m"
+
+
+criar ~/.m2/settings.xml
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <mirrors>
+    <mirror>
+     <id>apache-incubator</id>
+     <name>Codehaus bypass mirror</name>
+     <url>https://repository.apache.org/content/repositories/releases/</url>
+     <mirrorOf>codehaus</mirrorOf>
+    </mirror>
+  </mirrors>
+</settings>
+
+
+mvn install
+
+
+curl -O https://cdn.mysql.com//Downloads/Connector-J/mysql-connector-java-3.1.14.tar.gz
+tar xvzf mysql-connector-java-3.1.14.tar.gz
+sudo mkdir /var/lib/tomcat7/lib
+sudo cp mysql-connector-java-3.1.14/mysql-connector-java-3.1.14-bin.jar /var/lib/tomcat7/lib/
