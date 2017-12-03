@@ -34,3 +34,5 @@ curl -O https://cdn.mysql.com//Downloads/Connector-J/mysql-connector-java-3.1.14
 tar xvzf mysql-connector-java-3.1.14.tar.gz
 sudo mkdir /var/lib/tomcat7/lib
 sudo cp mysql-connector-java-3.1.14/mysql-connector-java-3.1.14-bin.jar /var/lib/tomcat7/lib/
+
+

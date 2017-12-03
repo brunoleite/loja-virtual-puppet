@@ -1,5 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+# encoding: UTF-8
 VAGRANTFILE_API_VERSION = "2"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -44,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider :virtualbox do |vb|
     #vb.customize ["modifyvm", :id, "--memory", "2048"]
     vb.memory = 1024 
-    #vb.memory = 2048
+    # vb.memory = 2048
     #vb.cpus = 2
   end
   # Disable automatic box update checking. If you disable this, then
