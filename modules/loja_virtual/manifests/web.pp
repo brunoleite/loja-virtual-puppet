@@ -22,7 +22,10 @@ class loja_virtual::web {
     group   => tomcat7,
     mode    => 0644,
     source  => "puppet:///modules/loja_virtual/devopsnapratica.war",
-    require => Package["tomcat7"],
+    require => [
+      Package["tomcat7"],
+      File["/var/lib/tomcat7/lib/mysql-connector-java-3.1.14-bin.jar"]  
+    ],
     notify  => Service["tomcat7"],
   }
 }

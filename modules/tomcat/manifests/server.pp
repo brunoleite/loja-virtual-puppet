@@ -55,7 +55,10 @@ class tomcat::server($connectors = [], $data_sources = []) {
     enable => true,
     hasstatus => true,
     hasrestart => true,
-    require  => Package["tomcat7"],
+    require  => [
+      Package["tomcat7"],
+      File["/var/lib/tomcat7/lib/mysql-connector-java-3.1.14-bin.jar"],
+    ],
   }
 }
 
