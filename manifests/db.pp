@@ -31,21 +31,28 @@ class mysql-server {
     path   => "/usr/bin",
     require => Service["mysql"],
   }
+}
 
+define mysql-db($schema, $user = $title, $password) {
+  Class['mysql-server'] -> Mysql-db[$title]
+
+  exec { "$title-schema":
+    unless => "mysql -uroot $schema",
+    command => "mysqladmin -uroot create $schema",
+    path => "/usr/bin",
+  }
+
+  exec { "$title-user":
+    unless => "mysql -u$user -p$password $schema",
+    command => "mysql -uroot -e \"GRANT ALL PRIVILEGES ON $schema.* TO '$user'@'%' IDENTIFIED BY '$password';\"",
+    path   => "/usr/bin",
+    require => Service["$title-schema"],
+  }
 }
 
 include mysql-server
 
-exec { "loja-schema":
-  unless => "mysql -uroot loja_schema",
-  command => "mysqladmin -uroot create loja_schema",
-  path => "/usr/bin",
-  require => Class["mysql-server"],
-}
-
-exec { "loja-user":
-  unless => "mysql -uloja -plojasecret loja_schema",
-  command => "mysql -uroot -e \"GRANT ALL PRIVILEGES ON loja_schema.* TO 'loja'@'%' IDENTIFIED BY 'lojasecret';\"",
-  path   => "/usr/bin",
-  require => Service["mysql"],
+mysql-db { "loja":
+  schema => "loja_schema",
+  password => "lojasecret",
 }
