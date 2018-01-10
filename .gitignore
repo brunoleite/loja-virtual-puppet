@@ -3,3 +3,7 @@
 *.jar
 *.war
 .keystore
+librarian/modules/
+librarian/.tmp/
+librarian/.librarian/
+*.lock
