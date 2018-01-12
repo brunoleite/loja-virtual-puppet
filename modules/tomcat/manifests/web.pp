@@ -21,7 +21,7 @@ $db = {
 }
 
 file { $keystore_file:
-  mode  => 0640,
+  mode  => "0640",
   source => "/vagrant/manifests/.keystore",
 }
 
