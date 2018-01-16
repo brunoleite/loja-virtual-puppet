@@ -59,6 +59,8 @@ class loja_virtual::ci inherits loja_virtual {
   $git_poll_interval = '* * * * *'
   $maven_goal = 'install'
   $archive_artifacts = 'combined/target/*.war'
+  $repo_dir = '/var/lib/apt/repo'
+  $repo_name = 'devopspkgs'
 
   file { $job_structure[1]:
     ensure => 'directory',
@@ -77,6 +79,11 @@ class loja_virtual::ci inherits loja_virtual {
     content => template('loja_virtual/config.xml'),
     require => File[$job_structure],
     notify  => Service['jenkins'],
+  }
+
+  class { 'loja_virtual::repo':
+    basedir => $repo_dir,
+    param_name => $repo_name,
   }
 }
 
