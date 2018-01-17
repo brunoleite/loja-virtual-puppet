@@ -12,6 +12,12 @@ class loja_virtual::ci inherits loja_virtual {
     require => Package['rubygems1.9.1'],
   }
 
+  package { 'bundle':
+    ensure => 'installed',
+    provider => 'gem',
+    require => Package['rubygems1.9.1'],
+  }
+  
   class { 'jenkins':
     install_java => false,
     config_hash => {
