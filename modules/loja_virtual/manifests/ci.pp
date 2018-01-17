@@ -49,7 +49,13 @@ class loja_virtual::ci inherits loja_virtual {
     'workflow-step-api',
     'script-security',
     'workflow-support',
-    'durable-task'
+    'durable-task',
+    'parameterized-trigger',
+    'copyartifact',
+    'conditional-buildstep',
+    'run-condition',
+    'token-macro',
+    'workflow-job'
   ]
 
   jenkins::plugin { $plugins: }
