@@ -1,9 +1,15 @@
 class loja_virtual::ci inherits loja_virtual {
   apt::ppa { 'ppa:openjdk-r/ppa': }  
 
-  package { ['git', 'maven2', 'openjdk-6-jdk', 'openjdk-8-jdk']:
+  package { ['git', 'maven2', 'openjdk-6-jdk', 'openjdk-8-jdk', 'build-essential', 'ruby1.9.3', 'rubygems1.9.1']:
     ensure => "installed",
     require => Class['apt'],
+  }
+
+  package { 'fpm':
+    ensure => '1.8.0',
+    provider => 'gem',
+    require => Package['rubygems1.9.1'],
   }
 
   class { 'jenkins':
