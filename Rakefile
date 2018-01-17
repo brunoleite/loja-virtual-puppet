@@ -30,7 +30,7 @@ namespace :librarian do
 end
 
 desc "Cria o pacote puppet.tgz"
-task :package => ['librarian:install', :lint, :spec] do
+task :package => ['librarian:install', :spec] do
   sh "tar czvf puppet.tgz manifests environments modules librarian/modules"
 end
 
