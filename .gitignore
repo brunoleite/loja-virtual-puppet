@@ -7,3 +7,4 @@ librarian/modules/
 librarian/.tmp/
 librarian/.librarian/
 *.lock
+*.tgz

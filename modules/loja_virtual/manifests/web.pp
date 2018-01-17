@@ -18,15 +18,18 @@ class loja_virtual::web {
     require => File[$loja_virtual::params::keystore_file],
   }
 
-  file {"/var/lib/tomcat7/webapps/devopsnapratica.war":
-    owner   => tomcat7,
-    group   => tomcat7,
-    mode    => "0644",
-    source  => "puppet:///modules/loja_virtual/devopsnapratica.war",
-    require => [
-      Package["tomcat7"],
-      File["/var/lib/tomcat7/lib/mysql-connector-java-3.1.14-bin.jar"]  
-    ],
+  apt::source { 'devopsnapratica':
+    location      => 'http://192.168.33.16/',
+    release       => 'devopspkgs',
+    repos         => 'main',
+    key           => '8044FB04',
+    key_source    => 'http://192.168.33.16/devopspkgs.gpg',
+    include_src   => false,
+  }
+
+  package { "devopsnapratica":
+    ensure => "latest",
+    require       => File["/var/lib/tomcat7/lib/mysql-connector-java-3.1.14-bin.jar"], 
     notify  => Service["tomcat7"],
   }
 }
